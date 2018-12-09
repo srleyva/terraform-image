@@ -1,0 +1,22 @@
+#!/bin/sh -xe
+
+export GOOGLE_CLOUD_KEYFILE_JSON=~/.config/gcloud/legacy_credentials/terraform-test@nifi-staq-test.iam.gserviceaccount.com/adc.json # Not sure why?
+export TF_VAR_GOOGLE_CLOUD_KEYFILE_JSON=$GOOGLE_CLOUD_KEYFILE_JSON
+export TF_VAR_GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID
+export TF_VAR_GOOGLE_COMPUTE_ZONE=$GOOGLE_COMPUTE_ZONE
+
+mv /tmp/provider.tf ./
+
+terraform init -input=false
+
+case "$TERRAFORM_COMMAND" in
+    apply)
+    	terraform apply -input=false -auto-approve
+        ;;
+    plan)
+    	terraform plan -input=false
+        ;;
+    *)
+        echo 'TERRAFORM_COMMAND must be set!'
+        exit 1
+esac
