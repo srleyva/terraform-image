@@ -1,9 +1,6 @@
 #!/bin/sh -xe
 
-export GOOGLE_CLOUD_KEYFILE_JSON=~/.config/gcloud/legacy_credentials/terraform-test@nifi-staq-test.iam.gserviceaccount.com/adc.json # Not sure why?
-export TF_VAR_GOOGLE_CLOUD_KEYFILE_JSON=$GOOGLE_CLOUD_KEYFILE_JSON
-export TF_VAR_GOOGLE_PROJECT_ID=$GOOGLE_PROJECT_ID
-export TF_VAR_GOOGLE_COMPUTE_ZONE=$GOOGLE_COMPUTE_ZONE
+export GOOGLE_CLOUD_KEYFILE_JSON="/root/.config/gcloud/legacy_credentials/$CIRCLE_PROJECT_REPONAME@$GOOGLE_PROJECT_ID.iam.gserviceaccount.com/adc.json" # Not sure why?
 
 mv /tmp/provider.tf ./
 
