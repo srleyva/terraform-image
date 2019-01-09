@@ -2,7 +2,7 @@
 
 export GOOGLE_CLOUD_KEYFILE_JSON="/root/.config/gcloud/legacy_credentials/$CIRCLE_PROJECT_REPONAME@$GOOGLE_PROJECT_ID.iam.gserviceaccount.com/adc.json" # Not sure why?
 
-mv /tmp/provider.tf ./
+provider-gen
 
 terraform init -input=false
 

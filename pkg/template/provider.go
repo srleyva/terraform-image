@@ -8,15 +8,17 @@ import (
 )
 
 const providerTemplate = `
-provider "google" {
-  project = "{{ .GoogleProjectName }}"
-  zone    = "${{ .GoogleZone }}"
+variable ENVIRONMENT {
+  default = "{{ .BucketPrefix }}"
 }
 
-data "terraform_remote_state" "bucket_state" {
-  backend = "gcs"
+provider "google" {
+  project = "{{ .GoogleProjectName }}"
+  zone    = "{{ .GoogleZone }}"
+}
 
-  config {
+terraform {
+  backend "gcs" {
     bucket      = "{{ .StateBucket }}"
     prefix      = "{{ .BucketPrefix }}"
     credentials = "{{ .GoogleCreds }}"
@@ -57,7 +59,7 @@ func (p *Provider) GenerateProvider() error {
 		return err
 	}
 
-	err = ioutil.WriteFile("/tmp/provider.tf", buffer.Bytes(), 0644)
+	err = ioutil.WriteFile("provider.tf", buffer.Bytes(), 0644)
 	if err != nil {
 		return err
 	}

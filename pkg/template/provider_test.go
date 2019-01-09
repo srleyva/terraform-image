@@ -55,12 +55,12 @@ func TestGenerateProvider(t *testing.T) {
 	}
 
 	provider := NewProvider()
-	defer os.Remove("/tmp/provider.tf")
+	defer os.Remove("provider.tf")
 	if err := provider.GenerateProvider(); err != nil {
 		t.Errorf("err returned where not expected: %s", err)
 	}
 
-	if _, err := os.Stat("/tmp/provider.tf"); os.IsNotExist(err) {
-		t.Errorf("file not generate at /tmp/provider.tf")
+	if _, err := os.Stat("provider.tf"); os.IsNotExist(err) {
+		t.Errorf("file not generate at provider.tf")
 	}
 }
